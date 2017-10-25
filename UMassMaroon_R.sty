@@ -1,0 +1,96 @@
+%% This is file `UMassMaroon.sty',
+%% Modification to metropolis scheme for Monash Business School
+%% Created by Rob J Hyndman. 28 March 2017
+%% This should really be a proper beamer theme, but I have no time...
+
+% Plenty of room
+\setbeamersize{text margin left=2em,text margin right=2em}
+
+% Monash colours
+\usecolortheme{UMassMaroon}
+
+% Rounded corners on boxes
+\useinnertheme{rounded}
+
+% Lets make descriptions and alerts bold
+\setbeamerfont{description item}{series=\bfseries}
+\setbeamerfont{alerted text}{series=\bfseries}
+
+% Square bullets and enumerated items
+\setbeamertemplate{items}[square]
+\setbeamertemplate{enumerate item}[square]
+\setbeamertemplate{enumerate item}
+{
+  \hbox{%
+    \usebeamerfont*{item projected}%
+    \usebeamercolor[LightBlue]{item projected}% original: [bg]
+    \vrule width4ex height2.7ex depth.7ex%
+    \hskip-4ex%
+    \hbox to4ex{%
+      \hfil%
+      \color{white}\raisebox{.2ex}{\insertenumlabel}%
+      \hfil}%
+  }%
+}
+
+% Redefine shaded environment if it exists (for R plots)
+\ifcsname Shaded\endcsname
+  \definecolor{shadecolor}{RGB}{225,225,225}
+  \renewenvironment{Shaded}{\color{black}\begin{snugshade}\color{black}}{\end{snugshade}}
+\fi
+
+% Figure placement using textpos
+\usepackage{graphicx}
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{1cm}
+\setlength{\TPVertModule}{1cm}
+\def\placefig#1#2#3#4{\begin{textblock}{.1}(#1,#2)\rlap{\includegraphics[#3]{#4}}\end{textblock}}
+\def\fullheight#1{\placefig{0.1}{1.2}{height=8.3cm}{#1}}
+\def\fullwidth#1{\placefig{0.1}{1.2}{width=12.8cm}{#1}}
+
+% Clever right hand placement
+\newcommand*{\atright}[1]{{%
+  \unskip\nobreak\hfill\penalty50
+  \hskip2em\hbox{}\nobreak\hfill#1
+  \parfillskip=0pt\finalhyphendemerits=0\par}}
+
+% Slow reveal lists
+\def\biz{\begin{itemize}[<+-| alert@+>]}
+\def\eiz{\end{itemize}}
+\def\ben{\begin{enumerate}[<+-| alert@+>]}
+\def\een{\end{enumerate}}
+
+% Remove ugly space at top of blocks before equations
+\addtobeamertemplate{block begin}{\setlength\abovedisplayskip{0pt}}
+
+% Fix dates
+\usepackage[no-weekday]{eukdate}
+
+% A more interesting and tighter font
+\usepackage[lf,t]{carlito}
+
+% Monash title page
+\setbeamerfont{title}{series=\bfseries,parent=structure,size=\Large}
+\setbeamertemplate{title page}
+{
+% \vspace{-7cm}
+% \setbeamercolor{coloredboxstuff}{bg=white}
+% \begin{beamercolorbox}[wd=\paperwidth,ht=0.15\paperheight]{coloredboxstuff}
+% 
+% \end{beamercolorbox}
+
+\centering
+\placefig{8}{0.5}{width=0.3\paperwidth}{UMass_vertical.eps}
+\begin{textblock}{7.5}(1,2.8)
+{\color{white}\raggedright\usebeamerfont{title}\par\inserttitle}
+\end{textblock}
+\begin{textblock}{7.5}(1,6)
+{\color{white}\raggedright{\small \insertauthor}\\[0.1cm]
+{\small \insertinstitute}\\[0.1cm]
+{\small \insertdate}\\[0.1cm]}
+\end{textblock}
+}
+
+% \setbeamertemplate{footline}[text line]{%
+%   \parbox{\linewidth}{\insertsubtitle\hfill\insertdate\hfill\insertpagenumber}}
+% \setbeamertemplate{navigation symbols}{}
